@@ -130,7 +130,7 @@ Nice to haves:
 
 #### Test Flight (macOS only)
 
-See your email for an internal invite. Public group is pending.
+> [Public link](https://testflight.apple.com/join/YVu54c8W)
 
 #### Compile Yourself (macOS only)
 1. Clone the repo
