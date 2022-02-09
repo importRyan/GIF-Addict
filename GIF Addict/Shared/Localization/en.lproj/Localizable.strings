@@ -1,0 +1,13 @@
+"APP_TITLE" = "GIF Addict";
+"APP_SLUG" = "Find GIFs Together";
+"SEARCH_PROMPT" = "Search GIPHY";
+"LABEL_RESULTS" = "Results";
+"LABEL_SCROLLTOTOP" = "Scroll to Top";
+"LABEL_SHAREPLAY" = "Share Play";
+"LABEL_SHAREPLAYDISCONNECT" = "End SharePlay";
+"LABEL_FAVORITES" = "Favorites";
+"LABEL_SORT_BYRATING" = "By Rating";
+"LABEL_TRENDED" = "Trended";
+"LABEL_CREATED" = "Created";
+"TITLE_UNTITLED" = "Untitled";
+"LABEL_INSTANTLY" = "Instantly";
