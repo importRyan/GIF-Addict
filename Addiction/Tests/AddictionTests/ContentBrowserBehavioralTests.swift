@@ -4,6 +4,38 @@ import XCTest
 
 final class ContentBrowserBehavioralTests: XCTestCase {
 
+    func testInit_DoesNotTriggerServiceRequests() throws {
+        let test = Test()
+        XCTAssertEqual(0, test.remote.searchRequests.count)
+        XCTAssertEqual(0, test.local.searchRequests.count)
+        XCTAssertEqual(0, test.local.deleteRequests.count)
+        XCTAssertEqual(0, test.local.saveRequests.count)
+        XCTAssertEqual(0, test.local.getContentIDSRequests.count)
+        XCTAssertEqual(0, test.local.getContentIDRequests.count)
+    }
+
+    func testEndlessScroll_DoesNotSubmitExcessQuery() throws {
+        let test = Test()
+        configureWithRemoteSearchResults(test)
+        let startingRequests = (remote: test.remote.searchRequests.count, local: test.local.searchRequests.count)
+
+        awaitPublisher(
+            test.sut.$results.dropFirst(),
+            count: nil,
+            timeout: 1,
+            trigger: {
+                // Act
+                test.sut.nextSearchResultPage()
+            }, receiveValue: { exp, _ in
+                /// Should not be reached
+                exp.fulfill()
+            }
+        )
+
+        XCTAssertEqual(startingRequests.remote, test.remote.searchRequests.count)
+        XCTAssertEqual(startingRequests.local, test.local.searchRequests.count)
+    }
+
     func testDoesNotSetNewContentSource_IfCurrentlyThatSource() throws {
         let test = Test()
         let priorState = configureWithLocalSearchResults(test)
@@ -157,8 +189,6 @@ private extension ContentBrowserBehavioralTests {
         test.sut
             .$results
             .sink { results in
-                print("")
-                print(results)
                 guard results.count == test.remote.content.value.count,
                       test.remote.content.value.count > 1 else { return }
                 exp.fulfill()

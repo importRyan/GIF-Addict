@@ -11,7 +11,6 @@ extension Publisher where Output == ([AddictiveContent], AddictiveSearchResult),
 
     func mergeLocalRatingsIntoSearchResultsInAscendingRatingOrder() -> AnyPublisher<AddictiveSearchResult, Error> {
         map { ratings, searchResult -> AddictiveSearchResult in
-            Swift.print("MERGE", ratings)
             let ratedDict = ratings.hashMapBy(\.hostID)
             var prefix = [AddictiveContent]()
             var suffix = [AddictiveContent]()

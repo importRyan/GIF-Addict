@@ -63,7 +63,7 @@ extension ContentBrowserUseCase: Browsing {
     ///
     public func nextSearchResultPage() {
         guard var query = self.currentQuery else { return }
-        if !isLoading {
+        if !isLoading, totalResults > results.endIndex {
             query.startIndex = results.endIndex
             fetch(query: query)
         }
